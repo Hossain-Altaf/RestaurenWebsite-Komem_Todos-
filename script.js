@@ -1,13 +1,25 @@
 // Menu Items Data
 const menuItems = [
-    { id: 1, name: 'Margherita Pizza', category: 'Pizza', price: 12.99, image: '🍕', description: 'Classic tomato, mozzarella, and basil' },
-    { id: 2, name: 'Pepperoni Pizza', category: 'Pizza', price: 14.99, image: '🍕', description: 'Loaded with pepperoni and cheese' },
-    { id: 3, name: 'Caesar Salad', category: 'Salads', price: 8.99, image: '🥗', description: 'Crispy romaine with Caesar dressing' },
-    { id: 4, name: 'Chicken Burger', category: 'Burgers', price: 11.99, image: '🍔', description: 'Grilled chicken with fresh veggies' },
-    { id: 5, name: 'Beef Burger', category: 'Burgers', price: 13.99, image: '🍔', description: 'Juicy beef patty with special sauce' },
-    { id: 6, name: 'Pasta Carbonara', category: 'Pasta', price: 13.99, image: '🍝', description: 'Creamy pasta with bacon' },
-    { id: 7, name: 'Chocolate Cake', category: 'Desserts', price: 6.99, image: '🍰', description: 'Rich chocolate layer cake' },
-    { id: 8, name: 'Tiramisu', category: 'Desserts', price: 7.99, image: '🍰', description: 'Classic Italian dessert' }
+    { id: 1, name: 'Margherita Pizza', category: 'Pizza', price: 12.99, image: '🍕', description: 'Classic tomato, mozzarella, and basil', type: 'food' },
+    { id: 2, name: 'Pepperoni Pizza', category: 'Pizza', price: 14.99, image: '🍕', description: 'Loaded with pepperoni and cheese', type: 'food' },
+    { id: 3, name: 'Caesar Salad', category: 'Salads', price: 8.99, image: '🥗', description: 'Crispy romaine with Caesar dressing', type: 'food' },
+    { id: 4, name: 'Chicken Burger', category: 'Burgers', price: 11.99, image: '🍔', description: 'Grilled chicken with fresh veggies', type: 'food' },
+    { id: 5, name: 'Beef Burger', category: 'Burgers', price: 13.99, image: '🍔', description: 'Juicy beef patty with special sauce', type: 'food' },
+    { id: 6, name: 'Pasta Carbonara', category: 'Pasta', price: 13.99, image: '🍝', description: 'Creamy pasta with bacon', type: 'food' },
+    { id: 7, name: 'Chocolate Cake', category: 'Desserts', price: 6.99, image: '🍰', description: 'Rich chocolate layer cake', type: 'food' },
+    { id: 8, name: 'Tiramisu', category: 'Desserts', price: 7.99, image: '🍰', description: 'Classic Italian dessert', type: 'food' }
+];
+
+// Clothing Items Data
+const clothingItems = [
+    { id: 101, name: 'Classic T-Shirt', category: 'T-Shirts', price: 19.99, image: '👕', description: 'Premium cotton, comfortable fit', type: 'clothing' },
+    { id: 102, name: 'Polo Shirt', category: 'T-Shirts', price: 29.99, image: '👕', description: 'Elegant polo for casual occasions', type: 'clothing' },
+    { id: 103, name: 'Slim Fit Jeans', category: 'Pants', price: 49.99, image: '👖', description: 'Modern slim fit denim jeans', type: 'clothing' },
+    { id: 104, name: 'Cargo Pants', category: 'Pants', price: 44.99, image: '👖', description: 'Utility style with multiple pockets', type: 'clothing' },
+    { id: 105, name: 'Hoodie', category: 'Outerwear', price: 39.99, image: '🧥', description: 'Cozy hoodie for cold days', type: 'clothing' },
+    { id: 106, name: 'Leather Jacket', category: 'Outerwear', price: 149.99, image: '🧥', description: 'Premium leather jacket', type: 'clothing' },
+    { id: 107, name: 'Sneakers', category: 'Footwear', price: 79.99, image: '👟', description: 'Comfortable athletic sneakers', type: 'clothing' },
+    { id: 108, name: 'Formal Shoes', category: 'Footwear', price: 89.99, image: '👞', description: 'Classic formal dress shoes', type: 'clothing' }
 ];
 
 // State Management
@@ -55,6 +67,7 @@ function showPage(pageName) {
     if (pageName === 'cart') renderCart();
     if (pageName === 'orders') renderOrders();
     if (pageName === 'menu') renderMenu();
+    if (pageName === 'clothing') renderClothing();
 
     // Close mobile menu
     const nav = document.getElementById('nav');
@@ -115,8 +128,8 @@ function renderMenu() {
                 <h4>${item.name}</h4>
                 <p>${item.description}</p>
                 <div class="menu-item-footer">
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
-                    <button class="btn-primary" onclick="addToCart(${item.id})">Add to Cart</button>
+                    <span class="menu-item-price">${item.price.toFixed(2)}</span>
+                    <button class="btn-primary" onclick="addToCart(${item.id}, 'food')">Add to Cart</button>
                 </div>
             `;
             menuGrid.appendChild(itemCard);
@@ -127,9 +140,50 @@ function renderMenu() {
     });
 }
 
+// Render Clothing
+function renderClothing() {
+    const clothingContainer = document.getElementById('clothing-container');
+    clothingContainer.innerHTML = '';
+
+    // Group items by category
+    const categories = [...new Set(clothingItems.map(item => item.category))];
+
+    categories.forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'menu-category';
+
+        const categoryTitle = document.createElement('h3');
+        categoryTitle.textContent = category;
+        categoryDiv.appendChild(categoryTitle);
+
+        const menuGrid = document.createElement('div');
+        menuGrid.className = 'menu-grid';
+
+        const categoryItems = clothingItems.filter(item => item.category === category);
+        categoryItems.forEach(item => {
+            const itemCard = document.createElement('div');
+            itemCard.className = 'menu-item';
+            itemCard.innerHTML = `
+                <div class="menu-item-image">${item.image}</div>
+                <h4>${item.name}</h4>
+                <p>${item.description}</p>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price">${item.price.toFixed(2)}</span>
+                    <button class="btn-primary" onclick="addToCart(${item.id}, 'clothing')">Add to Cart</button>
+                </div>
+            `;
+            menuGrid.appendChild(itemCard);
+        });
+
+        categoryDiv.appendChild(menuGrid);
+        clothingContainer.appendChild(categoryDiv);
+    });
+}
+
 // Cart Functions
-function addToCart(itemId) {
-    const item = menuItems.find(i => i.id === itemId);
+function addToCart(itemId, itemType = 'food') {
+    const allItems = [...menuItems, ...clothingItems];
+    const item = allItems.find(i => i.id === itemId);
     const existingItem = cart.find(i => i.id === itemId);
 
     if (existingItem) {
@@ -363,6 +417,34 @@ function showNotification(message) {
         notification.style.animation = 'slideOut 0.3s ease-out';
         setTimeout(() => notification.remove(), 300);
     }, 2000);
+}
+
+// Scroll to reservation section
+function scrollToReservation() {
+    const reserveSection = document.getElementById('reserve-section');
+    if (reserveSection) {
+        reserveSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Submit reservation
+function submitReservation() {
+    const name = document.getElementById('reserve-name').value;
+    const phone = document.getElementById('reserve-phone').value;
+    const people = document.getElementById('reserve-people').value;
+    const datetime = document.getElementById('reserve-datetime').value;
+
+    if (!name || !phone || !datetime) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    // Clear form
+    document.getElementById('reserve-name').value = '';
+    document.getElementById('reserve-phone').value = '';
+    document.getElementById('reserve-datetime').value = '';
+
+    showNotification('Reservation request submitted successfully!');
 }
 
 // Add CSS animations
