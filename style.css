@@ -161,7 +161,7 @@ main {
 
 /* Hero Banner */
 .hero-banner {
-    background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.7)), 
+    background: linear-gradient(rgb(245, 3, 221), rgba(243, 3, 191, 0.7)), 
                 url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="500"%3E%3Cdefs%3E%3ClinearGradient id="grad" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:%23f97316;stop-opacity:1" /%3E%3Cstop offset="100%25" style="stop-color:%23fb923c;stop-opacity:1" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill="url(%23grad)" width="1200" height="500"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-size="120" fill="white" opacity="0.2"%3E🍕🍔🍝%3C/text%3E%3C/svg%3E');
     background-size: cover;
     background-position: center;
@@ -182,7 +182,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.3), transparent 70%);
+    background: radial-gradient(circle at 100% 100%, rgb(235, 6, 120), transparent 70%);
     animation: pulse-glow 3s ease-in-out infinite;
 }
 
